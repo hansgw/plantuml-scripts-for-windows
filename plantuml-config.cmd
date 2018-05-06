@@ -13,4 +13,4 @@ REM path to local PlantUML JAR file
 set PLANTUML_JAR_PATH=%ProgramFiles%\plantuml.jar
 
 REM PlantuML download url for the latest JAR file. see http://plantuml.com/download
-set PLANTUML_JAR_URL=https://vorboss.dl.sourceforge.net/project/plantuml/plantuml.jar
+set PLANTUML_JAR_URL=https://netix.dl.sourceforge.net/project/plantuml/plantuml.jar

@@ -49,7 +49,9 @@ function show_menu {
   echo -n "I choose: "
   read choice
   start_choice "$choice" && do_clear || ( do_clear && echo Unknown choice: $choice )
-  show_menu
+  if [[ "$batchMode" != "1" ]]; then
+    show_menu
+  fi
 }
 
 function start_choice {
@@ -162,4 +164,9 @@ function updatePlantUmlJar {
 
 init
 
-show_menu
+if [[ -z "$1" ]]; then
+  show_menu
+else
+  batchMode=1
+  start_choice $1
+fi

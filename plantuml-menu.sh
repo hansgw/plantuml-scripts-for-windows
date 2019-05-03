@@ -9,7 +9,6 @@ function init {
   readonly scriptDir=$( cd "$( dirname "$BASH_SOURCE" )" && pwd )
   readonly scriptFullpath=${scriptDir}/${scriptName}
   readonly scriptTitle="PlantUML-Menu"
-  set_window_title "$scriptTitle"
   cd "$scriptDir"
 
   # output file format. see parameter -t* http://plantuml.com/choice-line
@@ -34,9 +33,9 @@ function do_clear {
 }
 
 function show_menu {
+  set_window_title "$scriptTitle"
   showPlantUmlVersion
   echo
-  choice=choose
   echo $scriptTitle
   echo "b    Bash"
   echo "c    cmd"
@@ -47,6 +46,7 @@ function show_menu {
   echo "u    Update (or install) PlantUML JAR file"
   echo "x    Explorer"
   echo -n "I choose: "
+  choice=choose
   read choice
   start_choice "$choice" && do_clear || ( do_clear && echo Unknown choice: $choice )
   if [[ "$batchMode" != "1" ]]; then
@@ -60,7 +60,7 @@ function start_choice {
       ;;
     e|E) openCurrentScript
       ;;
-    exit|EXIT) exit 0
+    exit) exit 0
       ;;
     b|B) startBash
       ;;
@@ -68,7 +68,7 @@ function start_choice {
       ;;
     h|H) showPlantUmlHelp
       ;;
-    q|Q) exit 0
+    q|Q|quit) exit 0
       ;;
     s|S) startPlantUmlGui
       ;;

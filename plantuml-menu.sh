@@ -11,7 +11,7 @@ function init {
   readonly scriptTitle="PlantUML-Menu"
   cd "$scriptDir"
 
-  # output file format. see parameter -t* http://plantuml.com/choice-line
+  # output file format. see parameter -t* http://plantuml.com/de/command-line
   readonly PLANTUML_OUTPUT_FORMAT=svg
 
   # file extensions to consider when monitoring for PlantUML Code
@@ -44,12 +44,16 @@ function show_menu {
   echo "q    Quit"
   echo "s    Start PlantUml GUI"
   echo "u    Update (or install) PlantUML JAR file"
+  echo "wg   Open Graphviz website"
+  echo "wp   Open PlantUML website"
   echo "x    Explorer"
   echo -n "I choose: "
   choice=choose
   read choice
-  start_choice "$choice" && do_clear || ( do_clear && echo Unknown choice: $choice )
+  do_clear
+  start_choice "$choice" || ( echo Unknown choice: $choice )
   if [[ "$batchMode" != "1" ]]; then
+    echo
     show_menu
   fi
 }
@@ -74,6 +78,10 @@ function start_choice {
       ;;
     u|U) updatePlantUmlJar
       ;;
+    wg|WG) openGraphvizWebsite
+      ;;
+    wp|WP) openPlantUmlWebsite
+      ;;
     x|X) startExplorer
       ;;
     "") restartScript
@@ -87,6 +95,16 @@ function start_choice {
 function openCurrentScript {
   echo Opening this script...
   "${EDITOR:-vi}" "$scriptName"
+}
+
+function openGraphvizWebsite {
+  echo Opening Graphviz website...
+  cmd //c start https://www.graphviz.org/
+}
+
+function openPlantUmlWebsite {
+  echo Opening PlantUML website...
+  cmd //c start http://plantuml.com/
 }
 
 function restartScript {

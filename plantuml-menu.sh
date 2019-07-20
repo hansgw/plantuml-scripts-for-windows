@@ -11,6 +11,12 @@ function init {
   readonly scriptTitle="PlantUML-Menu"
   cd "$scriptDir"
 
+  isWindows=0
+  case "$OSTYPE" in
+    cygwin|msys) isWindows=1
+      ;;
+  esac
+
   # output file format. see parameter -t* http://plantuml.com/de/command-line
   readonly PLANTUML_OUTPUT_FORMAT=svg
 
@@ -21,7 +27,7 @@ function init {
   readonly PLANTUML_LIMIT_SIZE=8192
 
   # path to local PlantUML JAR file
-  readonly PLANTUML_JAR_PATH=/c/Program\ Files/plantuml.jar
+  readonly PLANTUML_JAR_PATH=$([[ $isWindows == 1 ]] && echo "/c/Program\ Files/plantuml.jar" || echo "$HOME/plantuml.jar")
 
   # PlantuML download url for the latest JAR file. see http://plantuml.com/download
   readonly PLANTUML_JAR_URL=https://netix.dl.sourceforge.net/project/plantuml/plantuml.jar
@@ -109,6 +115,7 @@ function openPlantUmlWebsite {
 
 function restartScript {
   clear
+  chmod +x "$scriptFullpath"
   exec "$scriptFullpath"
 }
 

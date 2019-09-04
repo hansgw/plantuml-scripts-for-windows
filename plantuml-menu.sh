@@ -133,7 +133,11 @@ function showPlantUmlVersion {
 
 function startBash {
   echo Starting Bash...
-  cmd //c start mintty bash
+  if [[ $isWindows == 1 ]]; then
+    cmd //c start mintty bash
+  else
+    bash
+  fi
 }
 
 function startConsole {

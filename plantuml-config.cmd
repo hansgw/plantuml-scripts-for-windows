@@ -1,5 +1,9 @@
 @echo off
 
+REM optional: configure proxy
+rem set http_proxy=http://host:8080
+rem set https_proxy=https://host:8443
+
 REM output file format. see parameter -t* http://plantuml.com/command-line
 set PLANTUML_OUTPUT_FORMAT=svg
 
